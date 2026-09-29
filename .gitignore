@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+surgraw_env/
+*.egg-info/
+.env
+test_logs/

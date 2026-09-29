@@ -19,6 +19,27 @@ def encode_image(image_path: str) -> str:
         return base64.b64encode(image_file.read()).decode("utf-8")
 
 # ============================================================
+# Gemini Vision for Image Captioning
+# ============================================================
+def gemini_vision_caption(image_path, prompt):
+    GEMINI_API_KEY = ''
+    genai.configure(api_key=GEMINI_API_KEY)
+    model = genai.GenerativeModel('gemini-1.5-flash')
+
+    with open(image_path, 'rb') as image_file:
+        image_data = image_file.read()
+
+    response = model.generate_content([
+        {
+            'mime_type': 'image/jpeg',
+            'data': image_data
+        },
+        prompt
+    ])
+
+    return response.text
+
+# ============================================================
 # GPT-4 Vision for Image Captioning
 # ============================================================
 def gpt4_vision_caption(image_path, prompt):
